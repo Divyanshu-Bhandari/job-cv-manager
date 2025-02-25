@@ -32,7 +32,7 @@ To get started with the Job CV Manager, follow these steps:
 
 4. **Start the development server:**
     ```bash
-    next dev -p 8888
+    npm run dev
     ```
 
 Your application should now be running on `http://localhost:8888`.
