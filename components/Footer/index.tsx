@@ -35,7 +35,7 @@ const supportLinks: FooterSection = {
   links: [
     { 
       label: "Contact Dev",
-      href: "mailto:mahesh.paul.j@gmail.com",
+      href: "mailto:divyanshub120130@gmail.com",
       external: true
     },
   ],
@@ -44,12 +44,12 @@ const supportLinks: FooterSection = {
 const socialLinks: SocialLink[] = [
   {
     platform: "GitHub",
-    href: "https://github.com/maheshpaulj/ResumeItNow",
+    href: "https://github.com/divyanshu-bhandari/job-cv-manager",
     icon: <Github className="h-5 w-5" />,
   },
   {
     platform: "Email",
-    href: "mailto:mahesh.paul.j@gmail.com",
+    href: "mailto:divyanshub120130@gmail.com",
     icon: <Mail className="h-5 w-5" />,
   },
 ];
@@ -110,7 +110,7 @@ export function Footer() {
         <div className="flex flex-col items-center md:items-start mb-8 md:mb-0">
           <Link href="/" className="group">
             <h2 className="text-xl font-bold group-hover:opacity-90 transition-opacity">
-              ResumeItNow
+              Job-CV-Manager
             </h2>
           </Link>
           <p className="text-sm text-muted-foreground mt-1">
@@ -127,7 +127,7 @@ export function Footer() {
             </Button>
           </div>
         </div>
-
+ 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-16">
           <FooterSection section={productLinks} />
           <FooterSection section={supportLinks} />
@@ -138,7 +138,7 @@ export function Footer() {
       <div className="border-t">
         <div className="container py-4 px-4">
           <p className="text-center text-sm text-muted-foreground">
-            © {currentYear} ResumeItNow. All rights reserved.
+            © {currentYear} Job-CV-Manager. All rights reserved.
           </p>
         </div>
       </div>

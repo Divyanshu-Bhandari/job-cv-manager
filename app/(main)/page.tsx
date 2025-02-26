@@ -148,8 +148,8 @@ export default function HomePage() {
             <p className="text-sm text-muted-foreground">Optimized</p>
           </div>
           <div>
-            <p className="text-3xl font-bold text-primary">MIT</p>
-            <p className="text-sm text-muted-foreground">Licensed</p>
+            <p className="text-3xl font-bold text-primary">Fast</p>
+            <p className="text-sm text-muted-foreground">and Secure</p>
           </div>
         </div>
       </section>
@@ -158,7 +158,7 @@ export default function HomePage() {
       <section className="py-24 bg-muted/50 flex flex-col items-center">
         <div className="container px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Why Choose ResumeItNow?</h2>
+            <h2 className="text-3xl font-bold mb-4">Why Choose Job-CV-Manager?</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Built with modern tools and designed for everyone. Create professional resumes 
               without the hassle of watermarks or hidden fees.
