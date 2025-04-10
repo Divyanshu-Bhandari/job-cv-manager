@@ -17,7 +17,7 @@ async function isAdmin(email: string): Promise<boolean> {
   return email === ADMIN_EMAIL;
 }
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
     const snapshot = await getDocs(collection(db, "careers"));
     const careers = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
