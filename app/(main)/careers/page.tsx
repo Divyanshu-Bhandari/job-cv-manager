@@ -174,7 +174,7 @@ export default function Careers() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [currentEditId, setCurrentEditId] = useState<string | null>(null);
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [jobs, setJobs] = useState<any[]>([]);
   const [loadingJobs, setLoadingJobs] = useState(true);
   const [filterExperience, setFilterExperience] = useState("all");
@@ -191,8 +191,8 @@ export default function Careers() {
           );
           const data = await res.json();
           setIsAdmin(data.isAdmin);
-        } catch (error) {
-          console.error("Error checking admin role:", error);
+        } catch {
+          console.error("Error checking admin role");
         } finally {
           setLoadingAdmin(false);
         }
@@ -210,8 +210,8 @@ export default function Careers() {
         const res = await fetch("/api/careers");
         const data = await res.json();
         setJobs(data.careers);
-      } catch (err) {
-        console.error("Error fetching jobs", err);
+      } catch {
+        console.error("Error fetching jobs");
       }
       setLoadingJobs(false);
     };
