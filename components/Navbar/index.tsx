@@ -34,13 +34,14 @@ interface NavLink {
 
 const navLinks: NavLink[] = [
   { title: 'Home', href: '/' },
+  { title: 'Careers', href: '/careers' },
   { title: 'About', href: '/about' },
   { title: 'Create', href: '/resume/create' },
 ];
 
 export default function Navbar() {
   const { data: session } = useSession();
-  const router = useRouter();
+  const router = useRouter();11
   const [mounted, setMounted] = useState(false);
   const [settings, setSettings] = useState<Settings>({
     displayName: '',

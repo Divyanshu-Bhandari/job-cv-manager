@@ -1,5 +1,6 @@
-import NextAuth, { AuthOptions } from 'next-auth'
-import GoogleProvider from 'next-auth/providers/google'
+import NextAuth, { AuthOptions } from 'next-auth';
+import GoogleProvider from 'next-auth/providers/google';
+import { db, doc, getDoc, setDoc } from './firebase';
 
 export const authOptions: AuthOptions = {
   session: {
@@ -13,13 +14,25 @@ export const authOptions: AuthOptions = {
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async signIn({profile}) {
-      if(!profile?.email){
+    async signIn({ profile }) {
+      if (!profile?.email) {
         throw new Error('No Profile!');
       }
+
+      const email = profile.email;
+      const userRef = doc(db, "users", email);
+      const userSnap = await getDoc(userRef);
+
+      if (!userSnap.exists()) {
+        // User doesn't exist, create with default role
+        await setDoc(userRef, {
+          role: "user"
+        });
+      }
+
       return true;
     }
   }
-}
+};
 
-export default NextAuth(authOptions)
+export default NextAuth(authOptions);
