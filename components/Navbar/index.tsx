@@ -41,7 +41,7 @@ const navLinks: NavLink[] = [
 
 export default function Navbar() {
   const { data: session } = useSession();
-  const router = useRouter();11
+  const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [settings, setSettings] = useState<Settings>({
     displayName: '',
