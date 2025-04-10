@@ -148,7 +148,7 @@ const getFaviconUrl = (url: string) => {
   try {
     const domain = new URL(url).hostname;
     return `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
-  } catch (error) {
+  } catch {
     console.error("Invalid URL:", url);
     return "";
   }
@@ -322,7 +322,7 @@ export default function Careers() {
       const fetchRes = await fetch("/api/careers");
       const fetchData = await fetchRes.json();
       setJobs(fetchData.careers);
-    } catch (error) {
+    } catch {
       toast({
         title: "Error",
         description: "Error adding opportunity. Please try again.",
@@ -375,7 +375,7 @@ export default function Careers() {
       const fetchRes = await fetch("/api/careers");
       const fetchData = await fetchRes.json();
       setJobs(fetchData.careers);
-    } catch (error) {
+    } catch {
       toast({
         title: "Error",
         description: "Error updating opportunity. Please try again.",
@@ -401,7 +401,7 @@ export default function Careers() {
       const fetchRes = await fetch("/api/careers");
       const fetchData = await fetchRes.json();
       setJobs(fetchData.careers);
-    } catch (error) {
+    } catch {
       toast({
         title: "Error",
         description: "Error deleting opportunity. Please try again.",

@@ -22,8 +22,8 @@ export async function GET(request: Request) {
     const snapshot = await getDocs(collection(db, "careers"));
     const careers = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     return NextResponse.json({ careers });
-  } catch (error) {
-    console.error("Error fetching careers:", error);
+  } catch {
+    console.error("Error fetching careers:");
     return NextResponse.json(
       { error: "Failed to fetch careers" },
       { status: 500 }
@@ -55,8 +55,8 @@ export async function POST(request: Request) {
 
     const docRef = await addDoc(collection(db, "careers"), newCareer);
     return NextResponse.json({ id: docRef.id, ...newCareer });
-  } catch (error) {
-    console.error("Error creating career:", error);
+  } catch {
+    console.error("Error creating career:");
     return NextResponse.json(
       { error: "Failed to create career" },
       { status: 500 }
@@ -91,8 +91,8 @@ export async function PATCH(request: Request) {
     const docRef = doc(db, "careers", id);
     await updateDoc(docRef, data);
     return NextResponse.json({ id, ...data });
-  } catch (error) {
-    console.error("Error updating career:", error);
+  } catch {
+    console.error("Error updating career:");
     return NextResponse.json(
       { error: "Failed to update career" },
       { status: 500 }
@@ -127,8 +127,8 @@ export async function DELETE(request: Request) {
     const docRef = doc(db, "careers", id);
     await deleteDoc(docRef);
     return NextResponse.json({ message: "Career deleted" });
-  } catch (error) {
-    console.error("Error deleting career:", error);
+  } catch {
+    console.error("Error deleting career:");
     return NextResponse.json(
       { error: "Failed to delete career" },
       { status: 500 }
