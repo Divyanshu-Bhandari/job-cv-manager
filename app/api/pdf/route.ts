@@ -8,44 +8,39 @@ export const maxDuration = 60;
 
 export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
+    const data = searchParams.get('data');
+    const template = searchParams.get('template');
 
-    // Basic validation to ensure we have some parameters
-    if (!searchParams.toString()) {
-        return NextResponse.json({ 
-            message: 'No query parameters provided' 
-        }, { status: 400 });
+    if (!data || !template) {
+        return NextResponse.json({ message: 'Missing data or template' }, { status: 400 });
     }
 
     try {
-        // let browser: Browser | BrowserCore;
-        // if (process.env.NODE_ENV === 'production' || process.env.VERCEL_ENV === 'production') {
-            const executablePath = await chromium.executablePath('https://github.com/Sparticuz/chromium/releases/download/v131.0.1/chromium-v131.0.1-pack.tar');
-            const browser: Browser | BrowserCore = await puppeteerCore.launch({
-                executablePath,
-                args: chromium.args,
-                headless: chromium.headless,
-                defaultViewport: chromium.defaultViewport,
-            });
-        // } else {
-        //     browser = await puppeteer.launch({
-        //         headless: true,
-        //         args: ['--no-sandbox', '--disable-setuid-sandbox'],
-        //     });
-        // }
+        // Use the production environment settings
+        const executablePath = await chromium.executablePath();
+        const browser: Browser | BrowserCore = await puppeteerCore.launch({
+            executablePath,
+            args: chromium.args,
+            headless: chromium.headless,
+            defaultViewport: chromium.defaultViewport,
+            env: {
+                ...process.env,
+                // This env variable might disable the built-in PDF viewer
+                PUPPETEER_DISABLE_BUILTIN_PDF_VIEWER: 'true'
+            }
+        });
 
         const page = await browser.newPage();
-        
-        // Construct URL using the exact same query parameters
-        const url = new URL(`${process.env.BASE_URL}/resume/download`);
-        url.search = searchParams.toString(); // Pass all query params exactly as received
 
-        await page.goto(url.toString(), { waitUntil: 'networkidle0' });
-        
-        // Wait for the resume-content div to appear
-        await page.waitForSelector('#resume-content', { 
-            visible: true,
-            timeout: 30000
+        // Optionally, set download behavior (useful if you plan to handle file downloads via CDP)
+        const client = await page.target().createCDPSession();
+        await client.send('Page.setDownloadBehavior', {
+            behavior: 'allow',
+            downloadPath: '/tmp' // Adjust path if needed
         });
+
+        const url = `${process.env.BASE_URL}/resume/download?data=${encodeURIComponent(data)}&template=${template}`;
+        await page.goto(url, { waitUntil: 'networkidle0' });
 
         const pdf = await page.pdf({
             format: 'A4',
@@ -54,9 +49,11 @@ export async function GET(request: NextRequest) {
                 top: '20px',
                 right: '10px',
                 bottom: '20px',
-                left: '10px',
-            },
+                left: '10px'
+            }
         });
+
+        console.log('Generated PDF size:', pdf.length);
 
         await browser.close();
 
@@ -64,14 +61,11 @@ export async function GET(request: NextRequest) {
             status: 200,
             headers: {
                 'Content-Type': 'application/pdf',
-                'Content-Disposition': `attachment; filename=resume.pdf`,
+                'Content-Disposition': 'attachment; filename=resume.pdf',
             },
         });
     } catch (error) {
         console.error('PDF generation error:', error);
-        return NextResponse.json(
-            { message: 'Error generating PDF' },
-            { status: 500 }
-        );
+        return NextResponse.json({ message: 'Error generating PDF' }, { status: 500 });
     }
 }
