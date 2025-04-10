@@ -27,7 +27,7 @@ import {
 import { useRouter } from 'next/navigation';
 
 // Local Storage Helper Functions
-const LOCAL_STORAGE_KEY = 'resumeitnow_form_data';
+const LOCAL_STORAGE_KEY = 'job-cv-manager_form_data';
 
 // Type for localStorage storage structure
 interface LocalStorageData {
@@ -89,7 +89,7 @@ export default function StepForm() {
     resolver: zodResolver(steps[step].schema),
     defaultValues: {
       personalDetails: {
-        fullName: localStorage.getItem("resumeitnow_name") || session?.user?.name || "",
+        fullName: localStorage.getItem("job-cv-manager_name") || session?.user?.name || "",
         email: session?.user?.email || "",
         phone: "",
         linkedin: "",

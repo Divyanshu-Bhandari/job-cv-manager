@@ -62,8 +62,8 @@ export default function SettingsPage() {
           });
           
           // Also set to localStorage as backup
-          localStorage.setItem('resumeitnow_name', data.displayName);
-          localStorage.setItem('resumeitnow_template', data.defaultTemplate);
+          localStorage.setItem('job-cv-manager_name', data.displayName);
+          localStorage.setItem('job-cv-manager_template', data.defaultTemplate);
         } else {
           // If no settings exist, use session name as default
           setSettings(prev => ({
@@ -93,8 +93,8 @@ export default function SettingsPage() {
       await setDoc(doc(db, 'users', session.user.email, 'settings', 'preferences'), settings);
       
       // Update localStorage
-      localStorage.setItem('resumeitnow_name', settings.displayName);
-      localStorage.setItem('resumeitnow_template', settings.defaultTemplate);
+      localStorage.setItem('job-cv-manager_name', settings.displayName);
+      localStorage.setItem('job-cv-manager_template', settings.defaultTemplate);
       
       // Update NextAuth session with new name
       await updateSession({

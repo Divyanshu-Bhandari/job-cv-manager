@@ -2,7 +2,13 @@
 import { Github, Mail } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import Image from "next/image";
 
 interface FooterLink {
   label: string;
@@ -33,10 +39,10 @@ const productLinks: FooterSection = {
 const supportLinks: FooterSection = {
   title: "Support",
   links: [
-    { 
+    {
       label: "Contact Dev",
       href: "mailto:divyanshub120130@gmail.com",
-      external: true
+      external: true,
     },
   ],
 };
@@ -106,28 +112,33 @@ export function Footer() {
 
   return (
     <footer className="border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex flex-col md:flex-row items-center justify-between py-8 px-4 md:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between py-8">
         <div className="flex flex-col items-center md:items-start mb-8 md:mb-0">
           <Link href="/" className="group">
             <h2 className="text-xl font-bold group-hover:opacity-90 transition-opacity">
-              Job-CV-Manager
+              <Image
+                src="/assets/job-cv-manager-logo.svg"
+                alt=""
+                width={220}
+                height={30}
+              />
             </h2>
           </Link>
           <p className="text-sm text-muted-foreground mt-1">
-            Create professional resumes with ease
+            Build professional resumes and find your next job—all in one place.
           </p>
           <div className="mt-4">
             <Button
               variant="outline"
               size="sm"
               className="text-sm"
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             >
               Back to top
             </Button>
           </div>
         </div>
- 
+
         <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-16">
           <FooterSection section={productLinks} />
           <FooterSection section={supportLinks} />
@@ -136,7 +147,7 @@ export function Footer() {
       </div>
 
       <div className="border-t">
-        <div className="container py-4 px-4">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
           <p className="text-center text-sm text-muted-foreground">
             © {currentYear} Job-CV-Manager. All rights reserved.
           </p>

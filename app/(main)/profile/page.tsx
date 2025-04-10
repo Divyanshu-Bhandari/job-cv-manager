@@ -48,8 +48,8 @@ export default function Page() {
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
   const settings = {
-    displayName: window.localStorage.getItem("resumeitnow_name") || session?.user?.name,
-    defaultTemplate: window.localStorage.getItem("resumeitnow_template") || 'modern'
+    displayName: window.localStorage.getItem("job-cv-manager_name") || session?.user?.name,
+    defaultTemplate: window.localStorage.getItem("job-cv-manager_template") || 'modern'
   };
 
   const deleteResume = async (resumeId: string) => {

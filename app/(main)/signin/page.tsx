@@ -23,8 +23,8 @@ export default function SignIn() {
             console.log(data);
 
             // Also set to localStorage as backup
-            localStorage.setItem('resumeitnow_name', data.displayName);
-            localStorage.setItem('resumeitnow_template', data.defaultTemplate);
+            localStorage.setItem('job-cv-manager_name', data.displayName);
+            localStorage.setItem('job-cv-manager_template', data.defaultTemplate);
           }
         } catch (error) {
           console.error('Error loading settings:', error);

@@ -11,7 +11,7 @@ interface PhoneInputComponentProps {
   };
   
 export const PhoneInputComponent = ({ register, errors }: PhoneInputComponentProps) => {
-    const storedData = localStorage.getItem("resumeitnow_form_data");
+    const storedData = localStorage.getItem("job-cv-manager_form_data");
     const defaultPhone = storedData ? JSON.parse(storedData)?.formData?.personalDetails?.phone || "" : "";
     const [defaultCountryCode, phone] = defaultPhone.split(" ");
     const [countryCode, setCountryCode] = useState(defaultCountryCode || "+91");

@@ -46,7 +46,7 @@ export default function ResumeView({
   const { data: session } = useSession();
 
   useEffect(() => {
-    const savedTemplate = localStorage.getItem('resumeitnow_template');
+    const savedTemplate = localStorage.getItem('job-cv-manager_template');
     if (savedTemplate && savedTemplate in TEMPLATES) {
       setSelectedTemplate(savedTemplate as TemplateKey);
     }
@@ -71,7 +71,7 @@ export default function ResumeView({
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `${resumeData.personalDetails.fullName}'s Resume - Made Using ResumeItNow.pdf`;
+      a.download = `${resumeData.personalDetails.fullName}'s Resume - Made Using job-cv-manager.pdf`;
       a.click();
       window.URL.revokeObjectURL(url);
       setIsDownloading(false);

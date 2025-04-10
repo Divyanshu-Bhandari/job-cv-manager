@@ -936,7 +936,7 @@ export async function GET(
         , {
       headers: {
         'Content-Type': 'application/pdf',
-        'Content-Disposition': `attachment; filename="${resumeData.personalDetails.fullName}'s Resume - Made using ResumeItNow.pdf"`,
+        'Content-Disposition': `attachment; filename="${resumeData.personalDetails.fullName}'s Resume - Made using job-cv-manager.pdf"`,
       },}
 );
 

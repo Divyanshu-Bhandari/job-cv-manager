@@ -21,6 +21,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
+import Image from 'next/image';
 
 interface Settings {
   displayName: string | null | undefined;
@@ -51,8 +52,8 @@ export default function Navbar() {
   useEffect(() => {
     setMounted(true);
     setSettings({
-      displayName: window.localStorage.getItem("resumeitnow_name") || session?.user?.name,
-      defaultTemplate: window.localStorage.getItem("resumeitnow_template") || 'modern'
+      displayName: window.localStorage.getItem("job-cv-manager_name") || session?.user?.name,
+      defaultTemplate: window.localStorage.getItem("job-cv-manager_template") || 'modern'
     });
   }, [session]);
 
@@ -137,7 +138,12 @@ export default function Navbar() {
               href="/"
               className="flex items-center space-x-2 font-bold text-2xl hover:opacity-90 transition-opacity"
             >
-              Job-CV-Manager
+              <Image 
+                src="/assets/job-cv-manager-logo.svg"
+                alt=''
+                width={220}
+                height={30}
+              />
             </Link>
           </div>
           <div className="hidden md:flex md:gap-2">
