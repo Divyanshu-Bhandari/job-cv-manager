@@ -438,7 +438,7 @@ export default function Careers() {
       <section className="flex-1 px-6 pb-12 pt-8 max-w-7xl mx-auto w-full">
         {!loadingAdmin && isAdmin && (
           <div className="w-full flex justify-center mb-6">
-            <div className="rounded-2xl bg-muted p-4 shadow-md border w-full sm:w-auto">
+            <div className="rounded-2xl bg-muted dark:bg-[#20202a] p-4 shadow-md border w-full sm:w-auto">
               <div className="flex items-center justify-between gap-4">
                 <Label className="text-foreground font-semibold">
                   Admin Controls
