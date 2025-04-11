@@ -62,10 +62,10 @@ export async function GET(request: NextRequest) {
         'Content-Disposition': 'attachment; filename=resume.pdf',
       },
     });
-  } catch (error: any) {
-    console.error('PDF generation error:', error);
+  } catch  {
+    console.error('PDF generation error:');
     return NextResponse.json(
-      { message: 'Error generating PDF', error: error?.toString() },
+      { message: 'Error generating PDF'},
       { status: 500 }
     );
   }
