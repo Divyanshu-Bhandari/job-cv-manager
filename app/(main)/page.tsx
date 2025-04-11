@@ -34,16 +34,6 @@ interface ResumeCount {
   count: number;
 }
 
-interface Job {
-  id: string;
-  positionName: string;
-  description: string;
-  jobLink: string;
-  location: string;
-  company: string;
-  lastDate: string;
-}
-
 async function getResumesCreated(): Promise<number> {
   try {
     const infoDoc = await getDoc(doc(db, "info", "resumesCreated"));
