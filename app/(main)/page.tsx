@@ -125,16 +125,26 @@ export default function HomePage() {
   const [jobs, setJobs] = useState<any[]>([]);
 
   useEffect(() => {
-    const getJobs = async () => {
+    const getLiveJobs = async () => {
       try {
         const res = await fetch("/api/careers");
         const data = await res.json();
-        setJobs(data.careers);
+
+        const now = new Date();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const liveJobs = data.careers.filter((job: any) => {
+          const start = new Date(job.startDate);
+          const end = new Date(job.lastDate);
+          return start <= now && end >= now;
+        });
+
+        setJobs(liveJobs);
       } catch {
         console.error("Error fetching jobs");
       }
     };
-    getJobs();
+
+    getLiveJobs();
   }, []);
 
   useEffect(() => {
