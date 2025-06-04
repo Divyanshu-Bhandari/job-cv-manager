@@ -1,8 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { type Browser } from 'puppeteer';
 import puppeteerCore, { type Browser as BrowserCore } from 'puppeteer-core';
-// import puppeteer from 'puppeteer'; // Commented for production
-import chromium from '@sparticuz/chromium-min';
+// import puppeteer from 'puppeteer'; // 🔧 Commented: only used in local development
+import chromium from '@sparticuz/chromium';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
@@ -20,8 +20,9 @@ export async function GET(request: NextRequest) {
 
   try {
     if (process.env.NODE_ENV === 'production' || process.env.VERCEL_ENV === 'production') {
-      // ✅ Production: use puppeteer-core with chromium
+      // ✅ Production: Use puppeteer-core + @sparticuz/chromium
       const executablePath = await chromium.executablePath();
+
       browser = await puppeteerCore.launch({
         executablePath,
         args: chromium.args,
@@ -29,7 +30,7 @@ export async function GET(request: NextRequest) {
         defaultViewport: chromium.defaultViewport,
       });
     } else {
-      // 🛠️ Development: use puppeteer (commented out)
+      // 🧪 Development: Use full puppeteer (uncomment if testing locally)
       /*
       console.log("Running in development mode, using full puppeteer.");
       browser = await puppeteer.launch({
@@ -69,8 +70,8 @@ export async function GET(request: NextRequest) {
       },
     });
 
-  } catch (error) {
-    console.error('PDF generation error:', error);
+  } catch (err) {
+    console.error('PDF generation error:', err);
     if (browser) await browser.close();
     return NextResponse.json(
       { message: 'Error generating PDF' },
