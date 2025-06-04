@@ -69,8 +69,8 @@ export async function GET(request: NextRequest) {
       },
     });
 
-  } catch (error) {
-    console.error('PDF generation error:', error);
+  } catch {
+    console.error('PDF generation error');
     if (browser) await browser.close();
     return NextResponse.json(
       { message: 'Error generating PDF' },
