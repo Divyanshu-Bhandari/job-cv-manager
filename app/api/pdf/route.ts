@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { type Browser } from 'puppeteer';
 import puppeteerCore, { type Browser as BrowserCore } from 'puppeteer-core';
-import puppeteer from 'puppeteer';
+// import puppeteer from 'puppeteer'; // Commented for production
 import chromium from '@sparticuz/chromium-min';
 
 export const dynamic = 'force-dynamic';
@@ -16,10 +16,11 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ message: 'Missing data or template' }, { status: 400 });
   }
 
+  let browser: Browser | BrowserCore | null = null;
+
   try {
-    let browser: Browser | BrowserCore;
     if (process.env.NODE_ENV === 'production' || process.env.VERCEL_ENV === 'production') {
-      // In production, use puppeteer-core with @sparticuz/chromium-min.
+      // ✅ Production: use puppeteer-core with chromium
       const executablePath = await chromium.executablePath();
       browser = await puppeteerCore.launch({
         executablePath,
@@ -28,13 +29,18 @@ export async function GET(request: NextRequest) {
         defaultViewport: chromium.defaultViewport,
       });
     } else {
-      // In development, use the full puppeteer package (which downloads its own Chromium).
+      // 🛠️ Development: use puppeteer (commented out)
+      /*
       console.log("Running in development mode, using full puppeteer.");
       browser = await puppeteer.launch({
         headless: true,
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
       });
+      */
+      console.error("Development mode Puppeteer is disabled. Uncomment the code to enable.");
     }
+
+    if (!browser) throw new Error("Browser not initialized");
 
     const page = await browser.newPage();
     const url = `${process.env.BASE_URL}/resume/download?data=${encodeURIComponent(data)}&template=${template}`;
@@ -53,7 +59,6 @@ export async function GET(request: NextRequest) {
     });
 
     console.log("PDF generated. Buffer size:", pdfBuffer.length);
-
     await browser.close();
 
     return new NextResponse(pdfBuffer, {
@@ -63,10 +68,12 @@ export async function GET(request: NextRequest) {
         'Content-Disposition': 'attachment; filename=resume.pdf',
       },
     });
-  } catch  {
-    console.error('PDF generation error:');
+
+  } catch (error) {
+    console.error('PDF generation error:', error);
+    if (browser) await browser.close();
     return NextResponse.json(
-      { message: 'Error generating PDF'},
+      { message: 'Error generating PDF' },
       { status: 500 }
     );
   }
