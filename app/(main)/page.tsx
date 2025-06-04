@@ -5,7 +5,6 @@ import { db } from "@/lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import Link from "next/link";
 import Image from "next/image";
-
 import CountUp from "react-countup";
 
 import {
@@ -15,9 +14,7 @@ import {
   Layout,
   Rocket,
   Briefcase,
-  ArrowUpRight,
 } from "lucide-react";
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";

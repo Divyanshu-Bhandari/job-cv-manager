@@ -29,6 +29,7 @@ export async function GET(request: NextRequest) {
       });
     } else {
       // In development, use the full puppeteer package (which downloads its own Chromium).
+      console.log("Running in development mode, using full puppeteer.");
       browser = await puppeteer.launch({
         headless: true,
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
