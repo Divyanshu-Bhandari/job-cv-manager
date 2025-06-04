@@ -63,7 +63,7 @@ function computeTfIdf(docs: string[]): {
   return { vectors, vocabulary };
 }
 
-export async function GET(request: Request) {
+export async function GET() {
   const session = await getServerSession(authOptions);
   if (!session?.user?.email) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
@@ -120,7 +120,7 @@ export async function GET(request: Request) {
 
     // --- 3. Build TF-IDF vectors
     const jobDocs = jobs.map((job) => `${job.description} ${job.positionName}`);
-    const { vectors, vocabulary } = computeTfIdf([...jobDocs, userText]);
+    const { vectors} = computeTfIdf([...jobDocs, userText]);
 
     const userVector = vectors.pop()!; // Last vector is user
 

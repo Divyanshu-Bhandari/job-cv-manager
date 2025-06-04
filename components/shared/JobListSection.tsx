@@ -36,8 +36,9 @@ function getTimeLeft(date: string) {
 }
 
 export default function JobListSection() {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const plugin = useRef(Autoplay({ delay: 3000, stopOnInteraction: true }));
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [jobs, setJobs] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [hasSuggested, setHasSuggested] = useState(false);
@@ -48,6 +49,7 @@ export default function JobListSection() {
       const res = await fetch("/api/careers");
       const data = await res.json();
       const now = new Date();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return data.careers.filter((job: any) => {
         const start = new Date(job.startDate);
         const end = new Date(job.lastDate);
@@ -57,6 +59,7 @@ export default function JobListSection() {
 
     const loadJobs = async () => {
       setLoading(true);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let liveJobs: any[] = [];
 
       const now = new Date();
@@ -67,6 +70,7 @@ export default function JobListSection() {
           const { suggested } = await res.json();
 
           if (res.ok && Array.isArray(suggested) && suggested.length > 0) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             liveJobs = suggested.filter((job: any) => {
               const start = new Date(job.startDate || now);
               const end = new Date(job.lastDate || now);
